@@ -1,0 +1,13 @@
+## Тепловая карта библиотек
+
+<iframe src="project/heatmap_libraries.html" width="100%" height="600px" frameborder="0"></iframe>
+
+
+## Тепловая карта культурное наследие
+
+<iframe src="project/heatmap_moscow.html" width="100%" height="600px" frameborder="0"></iframe>
+
+
+## Тепловая карта общая (осторожно глаза)
+
+<iframe src="project/combined_heatmap.html" width="100%" height="600px" frameborder="0"></iframe>

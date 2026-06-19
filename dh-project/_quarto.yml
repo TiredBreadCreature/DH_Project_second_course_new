@@ -1,0 +1,32 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Культурная концентрация"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Главная
+      - href: project/Project.ipynb
+        text: Проект
+      - href: maps.qmd
+        text: Карты
+      - href: itogi.qmd
+        text: Итоги
+      - href: https://github.com/tiredbreadcreature/DH_Project_second_course
+        text: Исходный код
+      - href: resource.qmd
+        text: Ресурсы
+  sidebar:
+    - title: "Содержание"
+      contents:
+        - project/Project.ipynb
+
+format:
+  html:
+    theme: flatly
+    toc: true
+    toc-depth: 3
+    lang: ru
+    code-fold: false

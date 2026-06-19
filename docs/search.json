@@ -1,0 +1,118 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Культурная концентрация",
+    "section": "",
+    "text": "плохое качество, хорошая картинка\nДобро пожаловать на сайт проекта по анализу культурной концентрации Москвы."
+  },
+  {
+    "objectID": "project/Project.html",
+    "href": "project/Project.html",
+    "title": "Культурная концентрация",
+    "section": "",
+    "text": "#Загрузка необходимого\n\n\n%pip install pandas\n%pip install folium\n%pip install ipywidgets\n%pip install openpyxl\n%pip install requests\n%pip install matplotlib\n%pip install seaborn\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport folium\nfrom folium.plugins import HeatMap, MarkerCluster\nimport requests\nimport numpy as np\nimport re\nimport json\nfrom collections import defaultdict\nimport matplotlib.pyplot as plt\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\nRequirement already satisfied: pandas in c:\\python\\lib\\site-packages (3.0.1)\nRequirement already satisfied: numpy&gt;=2.3.3 in c:\\python\\lib\\site-packages (from pandas) (2.4.3)\nRequirement already satisfied: python-dateutil&gt;=2.8.2 in c:\\python\\lib\\site-packages (from pandas) (2.9.0.post0)\nRequirement already satisfied: tzdata in c:\\python\\lib\\site-packages (from pandas) (2025.2)\nRequirement already satisfied: six&gt;=1.5 in c:\\python\\lib\\site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas) (1.17.0)\nNote: you may need to restart the kernel to use updated packages.\n\n\n\n[notice] A new release of pip is available: 25.2 -&gt; 26.1.2\n[notice] To update, run: python.exe -m pip install --upgrade pip\n\n\nRequirement already satisfied: folium in c:\\python\\lib\\site-packages (0.20.0)\nRequirement already satisfied: branca&gt;=0.6.0 in c:\\python\\lib\\site-packages (from folium) (0.8.2)\nRequirement already satisfied: jinja2&gt;=2.9 in c:\\python\\lib\\site-packages (from folium) (3.1.6)\nRequirement already satisfied: numpy in c:\\python\\lib\\site-packages (from folium) (2.4.3)\nRequirement already satisfied: requests in c:\\python\\lib\\site-packages (from folium) (2.32.5)\nRequirement already satisfied: xyzservices in c:\\python\\lib\\site-packages (from folium) (2026.3.0)\nRequirement already satisfied: MarkupSafe&gt;=2.0 in c:\\python\\lib\\site-packages (from jinja2&gt;=2.9-&gt;folium) (3.0.3)\nRequirement already satisfied: charset_normalizer&lt;4,&gt;=2 in c:\\python\\lib\\site-packages (from requests-&gt;folium) (3.4.4)\nRequirement already satisfied: idna&lt;4,&gt;=2.5 in c:\\python\\lib\\site-packages (from requests-&gt;folium) (3.11)\nRequirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in c:\\python\\lib\\site-packages (from requests-&gt;folium) (2.5.0)\nRequirement already satisfied: certifi&gt;=2017.4.17 in c:\\python\\lib\\site-packages (from requests-&gt;folium) (2025.10.5)\nNote: you may need to restart the kernel to use updated packages.\n\n\n\n[notice] A new release of pip is available: 25.2 -&gt; 26.1.2\n[notice] To update, run: python.exe -m pip install --upgrade pip\n\n\nRequirement already satisfied: ipywidgets in c:\\python\\lib\\site-packages (8.1.8)\nRequirement already satisfied: comm&gt;=0.1.3 in c:\\python\\lib\\site-packages (from ipywidgets) (0.2.3)\nRequirement already satisfied: ipython&gt;=6.1.0 in c:\\python\\lib\\site-packages (from ipywidgets) (9.7.0)\nRequirement already satisfied: traitlets&gt;=4.3.1 in c:\\python\\lib\\site-packages (from ipywidgets) (5.14.3)\nRequirement already satisfied: widgetsnbextension~=4.0.14 in c:\\python\\lib\\site-packages (from ipywidgets) (4.0.15)\nRequirement already satisfied: jupyterlab_widgets~=3.0.15 in c:\\python\\lib\\site-packages (from ipywidgets) (3.0.16)\nRequirement already satisfied: colorama&gt;=0.4.4 in c:\\python\\lib\\site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets) (0.4.6)\nRequirement already satisfied: decorator&gt;=4.3.2 in c:\\python\\lib\\site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets) (5.2.1)\nRequirement already satisfied: ipython-pygments-lexers&gt;=1.0.0 in c:\\python\\lib\\site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets) (1.1.1)\nRequirement already satisfied: jedi&gt;=0.18.1 in c:\\python\\lib\\site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets) (0.19.2)\nRequirement already satisfied: matplotlib-inline&gt;=0.1.5 in c:\\python\\lib\\site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets) (0.2.1)\nRequirement already satisfied: prompt_toolkit&lt;3.1.0,&gt;=3.0.41 in c:\\python\\lib\\site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets) (3.0.52)\nRequirement already satisfied: pygments&gt;=2.11.0 in c:\\python\\lib\\site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets) (2.19.2)\nRequirement already satisfied: stack_data&gt;=0.6.0 in c:\\python\\lib\\site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets) (0.6.3)\nRequirement already satisfied: wcwidth in c:\\python\\lib\\site-packages (from prompt_toolkit&lt;3.1.0,&gt;=3.0.41-&gt;ipython&gt;=6.1.0-&gt;ipywidgets) (0.2.14)\nRequirement already satisfied: parso&lt;0.9.0,&gt;=0.8.4 in c:\\python\\lib\\site-packages (from jedi&gt;=0.18.1-&gt;ipython&gt;=6.1.0-&gt;ipywidgets) (0.8.5)\nRequirement already satisfied: executing&gt;=1.2.0 in c:\\python\\lib\\site-packages (from stack_data&gt;=0.6.0-&gt;ipython&gt;=6.1.0-&gt;ipywidgets) (2.2.1)\nRequirement already satisfied: asttokens&gt;=2.1.0 in c:\\python\\lib\\site-packages (from stack_data&gt;=0.6.0-&gt;ipython&gt;=6.1.0-&gt;ipywidgets) (3.0.0)\nRequirement already satisfied: pure-eval in c:\\python\\lib\\site-packages (from stack_data&gt;=0.6.0-&gt;ipython&gt;=6.1.0-&gt;ipywidgets) (0.2.3)\nNote: you may need to restart the kernel to use updated packages.\n\n\n\n[notice] A new release of pip is available: 25.2 -&gt; 26.1.2\n[notice] To update, run: python.exe -m pip install --upgrade pip\n\n\nRequirement already satisfied: openpyxl in c:\\python\\lib\\site-packages (3.1.5)\nRequirement already satisfied: et-xmlfile in c:\\python\\lib\\site-packages (from openpyxl) (2.0.0)\nNote: you may need to restart the kernel to use updated packages.\n\n\n\n[notice] A new release of pip is available: 25.2 -&gt; 26.1.2\n[notice] To update, run: python.exe -m pip install --upgrade pip\n\n\nRequirement already satisfied: requests in c:\\python\\lib\\site-packages (2.32.5)\nRequirement already satisfied: charset_normalizer&lt;4,&gt;=2 in c:\\python\\lib\\site-packages (from requests) (3.4.4)\nRequirement already satisfied: idna&lt;4,&gt;=2.5 in c:\\python\\lib\\site-packages (from requests) (3.11)\nRequirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in c:\\python\\lib\\site-packages (from requests) (2.5.0)\nRequirement already satisfied: certifi&gt;=2017.4.17 in c:\\python\\lib\\site-packages (from requests) (2025.10.5)\nNote: you may need to restart the kernel to use updated packages.\n\n\n\n[notice] A new release of pip is available: 25.2 -&gt; 26.1.2\n[notice] To update, run: python.exe -m pip install --upgrade pip\n\n\nRequirement already satisfied: matplotlib in c:\\python\\lib\\site-packages (3.10.8)\nRequirement already satisfied: contourpy&gt;=1.0.1 in c:\\python\\lib\\site-packages (from matplotlib) (1.3.3)\nRequirement already satisfied: cycler&gt;=0.10 in c:\\python\\lib\\site-packages (from matplotlib) (0.12.1)\nRequirement already satisfied: fonttools&gt;=4.22.0 in c:\\python\\lib\\site-packages (from matplotlib) (4.62.0)\nRequirement already satisfied: kiwisolver&gt;=1.3.1 in c:\\python\\lib\\site-packages (from matplotlib) (1.5.0)\nRequirement already satisfied: numpy&gt;=1.23 in c:\\python\\lib\\site-packages (from matplotlib) (2.4.3)\nRequirement already satisfied: packaging&gt;=20.0 in c:\\python\\lib\\site-packages (from matplotlib) (25.0)\nRequirement already satisfied: pillow&gt;=8 in c:\\python\\lib\\site-packages (from matplotlib) (12.1.1)\nRequirement already satisfied: pyparsing&gt;=3 in c:\\python\\lib\\site-packages (from matplotlib) (3.3.2)\nRequirement already satisfied: python-dateutil&gt;=2.7 in c:\\python\\lib\\site-packages (from matplotlib) (2.9.0.post0)\nRequirement already satisfied: six&gt;=1.5 in c:\\python\\lib\\site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.17.0)\nNote: you may need to restart the kernel to use updated packages.\n\n\n\n[notice] A new release of pip is available: 25.2 -&gt; 26.1.2\n[notice] To update, run: python.exe -m pip install --upgrade pip\n\n[notice] A new release of pip is available: 25.2 -&gt; 26.1.2\n[notice] To update, run: python.exe -m pip install --upgrade pip\n\n\nRequirement already satisfied: seaborn in c:\\python\\lib\\site-packages (0.13.2)\nRequirement already satisfied: numpy!=1.24.0,&gt;=1.20 in c:\\python\\lib\\site-packages (from seaborn) (2.4.3)\nRequirement already satisfied: pandas&gt;=1.2 in c:\\python\\lib\\site-packages (from seaborn) (3.0.1)\nRequirement already satisfied: matplotlib!=3.6.1,&gt;=3.4 in c:\\python\\lib\\site-packages (from seaborn) (3.10.8)\nRequirement already satisfied: contourpy&gt;=1.0.1 in c:\\python\\lib\\site-packages (from matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (1.3.3)\nRequirement already satisfied: cycler&gt;=0.10 in c:\\python\\lib\\site-packages (from matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (0.12.1)\nRequirement already satisfied: fonttools&gt;=4.22.0 in c:\\python\\lib\\site-packages (from matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (4.62.0)\nRequirement already satisfied: kiwisolver&gt;=1.3.1 in c:\\python\\lib\\site-packages (from matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (1.5.0)\nRequirement already satisfied: packaging&gt;=20.0 in c:\\python\\lib\\site-packages (from matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (25.0)\nRequirement already satisfied: pillow&gt;=8 in c:\\python\\lib\\site-packages (from matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (12.1.1)\nRequirement already satisfied: pyparsing&gt;=3 in c:\\python\\lib\\site-packages (from matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (3.3.2)\nRequirement already satisfied: python-dateutil&gt;=2.7 in c:\\python\\lib\\site-packages (from matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (2.9.0.post0)\nRequirement already satisfied: tzdata in c:\\python\\lib\\site-packages (from pandas&gt;=1.2-&gt;seaborn) (2025.2)\nRequirement already satisfied: six&gt;=1.5 in c:\\python\\lib\\site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib!=3.6.1,&gt;=3.4-&gt;seaborn) (1.17.0)\nNote: you may need to restart the kernel to use updated packages.\n\n\n\n#загрузить датасет с библиотеками\ndf = pd.read_csv('data-526-2026-02-16.csv', sep=';', encoding='utf-8')\nprint(\"Датасет загружен\")\n\nДатасет загружен\n\n\n\ndef parse_coords(geo_str):\n    if pd.isna(geo_str):\n        return []\n    #числа с точкой\n    numbers = re.findall(r'[-+]?\\d*\\.\\d+|\\d+', geo_str)\n\n    coords = []\n    for i in range(0, len(numbers), 2):\n        if i+1 &lt; len(numbers):\n            lon = float(numbers[i])\n            lat = float(numbers[i+1])\n            coords.append((lat, lon))\n    return coords\n\n\n#к каждой строке\ndf['coords_list'] = df['geoData'].apply(parse_coords)\n\n#датафрейм\nrows = []\nfor idx, row in df.iterrows():\n    for lat, lon in row['coords_list']:\n        rows.append({\n            'lat': lat,\n            'lon': lon,\n            'library': row['CommonName'],\n            'chief_org': row['ChiefOrg']  # для группировки по округам\n        })\ncoord_df = pd.DataFrame(rows)\nprint(f\"Извлечено {len(coord_df)} точек (филиалов)\")\n\nИзвлечено 419 точек (филиалов)\n\n\n\n#Тепловая карта библиотек\nmoscow_center = [55.7558, 37.6173]\nheat_map = folium.Map(location=moscow_center, zoom_start=11)\n\nheat_data = [[row['lat'], row['lon'], 1] for _, row in coord_df.iterrows()]\nHeatMap(heat_data, radius=15, blur=10, max_zoom=1).add_to(heat_map)\n\nheat_map.save('heatmap_libraries.html')\ndisplay(heat_map)\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook\n\n\n\n#загрузить датасет культурного наследия\ndf = pd.read_csv('data-530-19-06-2026.csv', sep=';', encoding='utf-8')\n\n\nprint(df.columns)\nprint(df[['Centroid']].head())\n\nIndex(['Name of the object according to the documents', 'AISID',\n       'USRCHO Number', 'Object name',\n       'Name of the ensemble according to the documents', 'Ensemble name',\n       'Administrative area', 'District', 'Location', 'Addresses',\n       ' Security status', 'Category', 'Object type', 'global_id', 'Geodata',\n       'Centroid', 'Unnamed: 16'],\n      dtype='str')\n                                            Centroid\n0                                           Центроид\n1  {type=Point, coordinates=[37.568970703, 55.758...\n2  {type=Point, coordinates=[37.671012441, 55.765...\n3  {type=Point, coordinates=[37.654045185, 55.752...\n4  {type=Point, coordinates=[37.641285991, 55.755...\n\n\n\n#коорды\ndef parse_coordinates(coord_str):\n    if pd.isna(coord_str):\n        return None, None\n#точка плавает\n    match = re.search(r'\\[([\\d.]+),\\s*([\\d.]+)\\]', coord_str)\n    if match:\n        lon = float(match.group(1))\n        lat = float(match.group(2))\n        return lon, lat\n    return None, None\n\ndf[['lon', 'lat']] = df['Centroid'].apply(lambda x: pd.Series(parse_coordinates(x)))\n# Удаляем строки без координат\ndf_geo = df.dropna(subset=['lon', 'lat']).copy()\nprint(f'Успешно загружено {len(df_geo)} объектов с координатами')\n\nУспешно загружено 6917 объектов с координатами\n\n\n\n#культурная тепловая карта\nmoscow_center = [55.7558, 37.6173]\nm = folium.Map(location=moscow_center, zoom_start=11, tiles='OpenStreetMap')\n\nheat_data = [[row['lat'], row['lon']] for idx, row in df_geo.iterrows()]\n\n#новые цвета\nHeatMap(heat_data,\n        radius=15,\n        blur=10,\n        max_zoom=1,\n        gradient={0.2: 'purple', 0.4: 'red', 0.6: 'orange', 0.8: 'yellow', 1.0: 'blue'}\n       ).add_to(m)\n\n#HTML-файл\nm.save('heatmap_moscow.html')\nprint('Тепловая карта сохранена как heatmap_moscow.html')\n\ndisplay(m)\n\nТепловая карта сохранена как heatmap_moscow.html\n\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook\n\n\n\nmoscow_center = [55.7558, 37.6173]\n\n#общая карта\ncombined_map = folium.Map(location=moscow_center, zoom_start=11, tiles='OpenStreetMap')\n\nheat_data_libs = [[row['lat'], row['lon'], 1] for _, row in coord_df.iterrows()]\nHeatMap(\n    heat_data_libs,\n    radius=15,\n    blur=10,\n    max_zoom=1,\n    gradient={0.2: 'blue', 0.4: 'cyan', 0.6: 'lime', 0.8: 'yellow', 1.0: 'white'},\n    name='Библиотеки',\n    min_opacity=0.3\n).add_to(combined_map)\n\n\nheat_data_heritage = [[row['lat'], row['lon']] for _, row in df_geo.iterrows()]\nHeatMap(\n    heat_data_heritage,\n    radius=15,\n    blur=10,\n    max_zoom=1,\n    gradient={0.2: 'purple', 0.4: 'magenta', 0.6: 'orange', 0.8: 'gold', 1.0: 'red'},\n    name='Наследие',\n    min_opacity=0.3\n).add_to(combined_map)\n\ncombined_map.save('combined_heatmap.html')\ndisplay(combined_map)\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook",
+    "crumbs": [
+      "Проект",
+      "Project.html"
+    ]
+  },
+  {
+    "objectID": "index.html#о-проекте",
+    "href": "index.html#о-проекте",
+    "title": "Культурная концентрация",
+    "section": "О проекте",
+    "text": "О проекте\nЗдесь доступны интерактивные карты тепловых карт библиотек и объектов культурного наследия столицы, код их построения и необходимые объяснения."
+  },
+  {
+    "objectID": "index.html#идея-проекта",
+    "href": "index.html#идея-проекта",
+    "title": "Культурная концентрация",
+    "section": "Идея проекта",
+    "text": "Идея проекта\nУзнать, какова концентрация объектов культурного притяжения, бесплатных для просмотра или посещения."
+  },
+  {
+    "objectID": "index.html#оговорки",
+    "href": "index.html#оговорки",
+    "title": "Культурная концентрация",
+    "section": "Оговорки",
+    "text": "Оговорки\nПроект подразумевает “бесплатное” как “свободное” и необязующее. Городские библиотеки бесплатны и свободны для посещения, а объекты культурного наследия могут быть свободно осмотрены внешне без посещения связанных экскурсий или выставок."
+  },
+  {
+    "objectID": "index.html#автор-проекта",
+    "href": "index.html#автор-проекта",
+    "title": "Культурная концентрация",
+    "section": "Автор проекта",
+    "text": "Автор проекта\n-Алло, EpicToast? Да-да, проекты.\nВыполнила проект Исаева Надежда, студент 2 курса ОП История из группы БИСТР-243.\n\n\n\nМем1"
+  },
+  {
+    "objectID": "resource.html",
+    "href": "resource.html",
+    "title": "Культурная концентрация",
+    "section": "",
+    "text": "Датасеты были вежливо позаимствованы с Портала открытых данных Правительства Москвы. (https://data.mos.ru/)\nА если конкретно, то:\nБиблиотеки - https://data.mos.ru/opendata/526\nКультурное наследие - https://data.mos.ru/opendata/530"
+  },
+  {
+    "objectID": "resource.html#данные",
+    "href": "resource.html#данные",
+    "title": "Культурная концентрация",
+    "section": "",
+    "text": "Датасеты были вежливо позаимствованы с Портала открытых данных Правительства Москвы. (https://data.mos.ru/)\nА если конкретно, то:\nБиблиотеки - https://data.mos.ru/opendata/526\nКультурное наследие - https://data.mos.ru/opendata/530"
+  },
+  {
+    "objectID": "itogi.html",
+    "href": "itogi.html",
+    "title": "Итоги проекта",
+    "section": "",
+    "text": "мем2\nНа этой странице я подведу итоги работы."
+  },
+  {
+    "objectID": "itogi.html#о-работе.",
+    "href": "itogi.html#о-работе.",
+    "title": "Итоги проекта",
+    "section": "О работе.",
+    "text": "О работе.\nИдея проекта заключалась в том, чтобы посмотреть и показать, много ли в Москве объектов культуры. Концентрация должна была показать развитие города и то, насколько разные районы адаптированы под культурные потребности населения."
+  },
+  {
+    "objectID": "itogi.html#необычное.",
+    "href": "itogi.html#необычное.",
+    "title": "Итоги проекта",
+    "section": "Необычное.",
+    "text": "Необычное.\nМогу отметить, что лично для себя я подчерпнула факт того, что в пределах бульварного кольца мало городских библиотек. Я всегда считала, что их там много. Судя по всему там есть частные библиотеки и то, что попадает под “архивы, соц фонды и прочее” или не является свободным для посещения (?).\nОднако вполне возможно, что это просто упущение датасета.\nЕсли говорить об общей концентрации, то стоит отметить, что (помимо центра) большая концентрация наблюдается в северных частях города, в то время как южные административные округа имеют меньшую концентрацию культурного наследия."
+  },
+  {
+    "objectID": "itogi.html#причинами-большей-концентрации-в-северных-округах-могут-являться",
+    "href": "itogi.html#причинами-большей-концентрации-в-северных-округах-могут-являться",
+    "title": "Итоги проекта",
+    "section": "Причинами большей концентрации в северных округах могут являться:",
+    "text": "Причинами большей концентрации в северных округах могут являться:\n-Дорога к Петербургу (вторая столица, большой трафик, необходимость застройки во все времена), но если смотреть старее, то - к Новгороду и Смоленску (не менее важные города)\n-Культурные, административные и торговые функции, что стимулировало застройку храмов, палат и прч.\n-Центр города географически ближе"
+  },
+  {
+    "objectID": "itogi.html#возможные-причины-меньшей-концентрации-на-юге",
+    "href": "itogi.html#возможные-причины-меньшей-концентрации-на-юге",
+    "title": "Итоги проекта",
+    "section": "Возможные причины меньшей концентрации на юге:",
+    "text": "Возможные причины меньшей концентрации на юге:\n-Отсутствие в России третьей “столицы” масштабов Петербурга и соответствующего трафика с Москвой (?).\n-Реки. Да, походу они. (как препятствия и необходимость переправы).\n-Иная застройка сама по себе. Вполне может не считаться и не являться культурным наследием.\n-Вполне могло быть в том числе из-за кочевников и орды. Набеги как раз шли с этой стороны, из-за чего приоритет был на северную часть (по инерции?) даже после устранения этой проблемы."
+  },
+  {
+    "objectID": "maps.html#тепловая-карта-культурное-наследие",
+    "href": "maps.html#тепловая-карта-культурное-наследие",
+    "title": "Культурная концентрация",
+    "section": "Тепловая карта культурное наследие",
+    "text": "Тепловая карта культурное наследие"
+  },
+  {
+    "objectID": "maps.html#тепловая-карта-общая-осторожно-глаза",
+    "href": "maps.html#тепловая-карта-общая-осторожно-глаза",
+    "title": "Культурная концентрация",
+    "section": "Тепловая карта общая (осторожно глаза)",
+    "text": "Тепловая карта общая (осторожно глаза)"
+  },
+  {
+    "objectID": "itogi.html#спасибо-за-внимание",
+    "href": "itogi.html#спасибо-за-внимание",
+    "title": "Итоги проекта",
+    "section": "Спасибо за внимание!",
+    "text": "Спасибо за внимание!\n\n\n\nмем3"
+  }
+]
